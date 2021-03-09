@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class mousetake : MonoBehaviour
 {
+    public string interactivetag;
+
     private Camera cam;//發射射線的攝像機
     private GameObject go;//射線碰撞的物體
     private Vector3 screenSpace;
@@ -26,23 +28,21 @@ public class mousetake : MonoBehaviour
             //從攝像機發出到點選座標的射線
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo)) 
             {
                 //劃出射線，只有在scene檢視中才能看到
                 Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
+                
 
                 go = hitInfo.collider.gameObject;
-
                 screenSpace = cam.WorldToScreenPoint(go.transform.position);
                 offset = go.transform.position - cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
 
             }
-
-
         }
 
         //拖拽物體不能為空
-        if (go != null)
+        if (go != null && go.tag == interactivetag) 
         {
             //拖拽
             if (Input.GetMouseButton(0))
