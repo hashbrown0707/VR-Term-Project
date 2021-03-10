@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class mousetake : MonoBehaviour
 {
+    public GameObject player;
+    public float t = 0.1f;
+    public float 倍率 = 1.0005f;
+    public int count = 1;
+    public int max_count = 600;
     public string interactivetag;
 
     private Camera cam;//發射射線的攝像機
@@ -32,7 +37,6 @@ public class mousetake : MonoBehaviour
             {
                 //劃出射線，只有在scene檢視中才能看到
                 Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-                
 
                 go = hitInfo.collider.gameObject;
                 screenSpace = cam.WorldToScreenPoint(go.transform.position);
@@ -42,16 +46,32 @@ public class mousetake : MonoBehaviour
         }
 
         //拖拽物體不能為空
-        if (go != null && go.tag == interactivetag) 
+        if (go != null) 
         {
             //拖拽
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && go.tag == interactivetag)
             {
-
                 Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
                 Vector3 currentPosition = cam.ScreenToWorldPoint(currentScreenSpace) + offset;
 
                 go.transform.position = currentPosition;
+                isdrage = true;
+            }
+            //魯味的鉤
+            else if (Input.GetMouseButton(4))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hitInfo;
+                Physics.Raycast(ray, out hitInfo);
+
+                Vector3 currentPosition = new Vector3(hitInfo.point.x, player.transform.position.y, hitInfo.point.z);
+
+                float temp_t = t;
+                for (int i = 0; i < count; i++)
+                    temp_t *= 倍率;
+                Debug.Log(temp_t + "/" + count);
+                player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, temp_t);
+                count = (count < max_count) ? count + 1 : max_count;
                 isdrage = true;
             }
             else
@@ -59,9 +79,8 @@ public class mousetake : MonoBehaviour
                 //結束後，清空物體
                 go = null;
                 isdrage = false;
+                count = 1;
             }
         }
-
-
     }
 }

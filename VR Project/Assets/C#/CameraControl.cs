@@ -8,6 +8,10 @@ public class CameraControl: MonoBehaviour
     public float rotatespeed = 0.5f;
     public GameObject light_gameobject;
     public int light_cd = 0;
+    public GameObject player;
+    public float sensitivityX = 10f;
+    public float sensitivityY = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,14 @@ public class CameraControl: MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             camera_gameobject.transform.Rotate(rotatespeed, 0, 0);
+        }
+        if (Input.GetMouseButton(1))
+        {
+            float rotationX = Input.GetAxis("Mouse X") * sensitivityX;
+            float rotationY = Input.GetAxis("Mouse Y") * sensitivityY;
+            camera_gameobject.transform.Rotate(-rotationY, 0, 0);
+            player.transform.Rotate(0, rotationX, 0);
+
         }
     }
 }

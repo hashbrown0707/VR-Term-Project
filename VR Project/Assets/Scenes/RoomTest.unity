@@ -2585,6 +2585,9 @@ MonoBehaviour:
   rotatespeed: 0.25
   light_gameobject: {fileID: 1311424872}
   light_cd: 0
+  player: {fileID: 1284463857}
+  sensitivityX: 7.5
+  sensitivityY: 7.5
 --- !u!1 &1041780355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,7 +2612,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041780355}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -3261,6 +3264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6faf40e46adb54458dbe3cd0e8a82db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1284463857}
+  t: 0.0025
+  "\u500D\u7387": 1.1
+  count: 1
+  max_count: 300
   interactivetag: "\u53EF\u62FF\u53D6"
 --- !u!4 &1302370968 stripped
 Transform:
@@ -3826,7 +3834,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453381183}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -5203,7 +5211,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938412492}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
