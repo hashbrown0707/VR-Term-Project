@@ -48,6 +48,15 @@ public class mousetake : MonoBehaviour
         //拖拽物體不能為空
         if (go != null) 
         {
+            // 按下互動鍵"f"
+            if (Input.GetKeyDown("f"))
+            {
+                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                {
+                    objectEvent.Keydown();
+                }
+            }
+
             //拖拽
             if (Input.GetMouseButton(0) && go.tag == interactivetag)
             {
@@ -56,6 +65,11 @@ public class mousetake : MonoBehaviour
 
                 go.transform.position = currentPosition;
                 isdrage = true;
+
+                //拖曳後轉變狀態
+                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                    objectEvent.state_i = 1;
+
             }
             //魯味的鉤
             else if (Input.GetMouseButton(4))

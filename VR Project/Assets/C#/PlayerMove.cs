@@ -24,22 +24,27 @@ public class PlayerMove : MonoBehaviour
         {
             this_gameobject.transform.position = Vector3.Lerp(this_gameobject.transform.position, frontanchor_gameobject.transform.position, movespeed);
         }
+
         if (Input.GetKey("s"))
         {
             this_gameobject.transform.position = Vector3.Lerp(this_gameobject.transform.position, behindanchor_gameobject.transform.position, movespeed * 0.75f);
         }
+
         if (Input.GetKey("d"))
         {
             this_gameobject.transform.position = Vector3.Lerp(this_gameobject.transform.position, rightanchor_gameobject.transform.position, movespeed * 0.85f);
         }
+
         if (Input.GetKey("a"))
         {
             this_gameobject.transform.position = Vector3.Lerp(this_gameobject.transform.position, leftanchor_gameobject.transform.position, movespeed * 0.85f);
         }
+
         if (Input.GetKey(KeyCode.RightArrow))
         {
             this_gameobject.transform.Rotate(0, rotatespeed, 0);
         }
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             this_gameobject.transform.Rotate(0, -rotatespeed, 0);
