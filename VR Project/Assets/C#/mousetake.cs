@@ -17,6 +17,10 @@ public class mousetake : MonoBehaviour
     private Vector3 offset;
 
     private bool isdrage = false;
+    private bool keepobject = false;
+    private GameObject keep;
+
+    public int take_cd = 0;
 
     void Start()
     {
@@ -56,8 +60,80 @@ public class mousetake : MonoBehaviour
                     objectEvent.Keydown();
                 }
             }
+            
+            //短按 拿到面前
+            if(Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
+            {
+                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                {
+                    objectEvent.state_i = 1;
+                    objectEvent.keepit(go);
+                    keep = go;
+                    keepobject = !keepobject;
+                    take_cd = 60;
+                }
+                    
+            }
+            //短按 放下
+            else if(Input.GetMouseButtonDown(0) && keepobject)
+            {
+                if (keep.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                {
+                    objectEvent.putit();
+                    keepobject = !keepobject;
+                    keep = null;
+                    take_cd = 0;
+                }
+            }
+            //長按 拖拽
+            else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag )
+            {
+                if (keep != null && keep.gameObject.TryGetComponent(out ObjectEvent keepobjectEvent))
+                {
+                    keepobjectEvent.putit();
+                    keepobject = !keepobject;
+                    keep = null;
+                    take_cd = 0;
+                }
 
-            //拖拽
+                Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
+                Vector3 currentPosition = cam.ScreenToWorldPoint(currentScreenSpace) + offset;
+
+                go.transform.position = currentPosition;
+                isdrage = true;
+
+                //拖曳後轉變狀態
+                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                    objectEvent.state_i = 1;
+
+            }
+            //魯味的鉤
+            else if (Input.GetMouseButton(4))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hitInfo;
+                Physics.Raycast(ray, out hitInfo);
+
+                Vector3 currentPosition = new Vector3(hitInfo.point.x, player.transform.position.y, hitInfo.point.z);
+
+                float temp_t = t;
+                for (int i = 0; i < count; i++)
+                    temp_t *= 倍率;
+                Debug.Log(temp_t + "/" + count);
+                player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, temp_t);
+                count = (count < max_count) ? count + 1 : max_count;
+                isdrage = true;
+            }
+            else
+            {
+                //結束後，清空物體
+                go = null;
+                isdrage = false;
+                count = 1;
+            }
+
+            take_cd = (take_cd == 0) ? 0 : take_cd - 1;
+            /*//拖拽
             if (Input.GetMouseButton(0) && go.tag == interactivetag)
             {
                 Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
@@ -94,7 +170,7 @@ public class mousetake : MonoBehaviour
                 go = null;
                 isdrage = false;
                 count = 1;
-            }
+            }*/
         }
     }
 }

@@ -8,6 +8,9 @@ public class ObjectEvent : MonoBehaviour
     protected string[] state = new string[3] { "未發現", "已發現", "使用中" };
     public string now_state;
     public int state_i = 0;
+    public GameObject keep_slot;
+    protected GameObject parent;
+    public float fly_speed = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +40,43 @@ public class ObjectEvent : MonoBehaviour
     protected void Unusing()
     {
         Debug.Log("OE解除使用");
+    }
+
+    //當 被拿取時
+    public void keepit(GameObject it)
+    {
+        Debug.Log("OE被拿取");
+
+        ObjectMove itm = it.AddComponent<ObjectMove>();
+        itm.PathA = it;
+        itm.PathB = keep_slot;
+        itm.Obj = it;
+
+        /*int temp = 100;
+        while (temp-->0)
+            it.transform.position = Vector3.Lerp(it.transform.position, keep_slot.transform.position, fly_speed);*/
+
+        //wait(1);
+
+
+        parent = it.transform.parent.gameObject;
+        it.transform.SetParent(keep_slot.transform);
+        it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+    }
+
+    private IEnumerator wait(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+    }
+
+    //當 被放下時
+    public virtual void putit()
+    {
+        Debug.Log("OE被放下");
+        Destroy(keep_slot.transform.GetChild(0).gameObject.GetComponent<ObjectMove>());
+        keep_slot.transform.GetChild(0).gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        keep_slot.transform.GetChild(0).gameObject.transform.SetParent(parent.transform);
+
     }
 }

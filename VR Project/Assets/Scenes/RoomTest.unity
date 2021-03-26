@@ -911,6 +911,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   now_state: 
   state_i: 0
+  keep_slot: {fileID: 1820969098}
+  fly_speed: 0.01
 --- !u!54 &241055764
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1385,6 +1387,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   now_state: 
   state_i: 0
+  keep_slot: {fileID: 1820969098}
+  fly_speed: 0.01
   diary: {fileID: 241055761}
   diary_HL: {fileID: 300499024}
 --- !u!1 &300499024
@@ -3648,6 +3652,7 @@ MonoBehaviour:
   count: 1
   max_count: 300
   interactivetag: "\u53EF\u62FF\u53D6"
+  take_cd: 0
 --- !u!4 &1302370968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4481777221271996, guid: 9207d796a4eef5c4fb42153a24ebf588,
