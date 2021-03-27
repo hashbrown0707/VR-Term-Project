@@ -37,7 +37,7 @@ public class mousetake : MonoBehaviour
             //從攝像機發出到點選座標的射線
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo)) 
+            if (Physics.Raycast(ray, out hitInfo))
             {
                 //劃出射線，只有在scene檢視中才能看到
                 Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
@@ -50,7 +50,7 @@ public class mousetake : MonoBehaviour
         }
 
         //拖拽物體不能為空
-        if (go != null) 
+        if (go != null)
         {
             // 按下互動鍵"f"
             if (Input.GetKeyDown("f"))
@@ -60,9 +60,9 @@ public class mousetake : MonoBehaviour
                     objectEvent.Keydown();
                 }
             }
-            
+
             //短按 拿到面前
-            if(Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
+            if (Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
             {
                 if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
                 {
@@ -72,10 +72,10 @@ public class mousetake : MonoBehaviour
                     keepobject = !keepobject;
                     take_cd = 60;
                 }
-                    
+
             }
             //短按 放下
-            else if(Input.GetMouseButtonDown(0) && keepobject)
+            else if (Input.GetMouseButtonDown(0) && keepobject)
             {
                 if (keep.gameObject.TryGetComponent(out ObjectEvent objectEvent))
                 {
@@ -86,7 +86,7 @@ public class mousetake : MonoBehaviour
                 }
             }
             //長按 拖拽
-            else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag )
+            else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag)
             {
                 if (keep != null && keep.gameObject.TryGetComponent(out ObjectEvent keepobjectEvent))
                 {
@@ -105,7 +105,7 @@ public class mousetake : MonoBehaviour
                 //拖曳後轉變狀態
                 if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
                     objectEvent.state_i = 1;
-
+                    
             }
             //魯味的鉤
             else if (Input.GetMouseButton(4))
@@ -131,46 +131,8 @@ public class mousetake : MonoBehaviour
                 isdrage = false;
                 count = 1;
             }
-
             take_cd = (take_cd == 0) ? 0 : take_cd - 1;
-            /*//拖拽
-            if (Input.GetMouseButton(0) && go.tag == interactivetag)
-            {
-                Vector3 currentScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
-                Vector3 currentPosition = cam.ScreenToWorldPoint(currentScreenSpace) + offset;
-
-                go.transform.position = currentPosition;
-                isdrage = true;
-
-                //拖曳後轉變狀態
-                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
-                    objectEvent.state_i = 1;
-
-            }
-            //魯味的鉤
-            else if (Input.GetMouseButton(4))
-            {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hitInfo;
-                Physics.Raycast(ray, out hitInfo);
-
-                Vector3 currentPosition = new Vector3(hitInfo.point.x, player.transform.position.y, hitInfo.point.z);
-
-                float temp_t = t;
-                for (int i = 0; i < count; i++)
-                    temp_t *= 倍率;
-                Debug.Log(temp_t + "/" + count);
-                player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, temp_t);
-                count = (count < max_count) ? count + 1 : max_count;
-                isdrage = true;
-            }
-            else
-            {
-                //結束後，清空物體
-                go = null;
-                isdrage = false;
-                count = 1;
-            }*/
         }
+        
     }
 }

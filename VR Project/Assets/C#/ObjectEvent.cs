@@ -6,9 +6,11 @@ public class ObjectEvent : MonoBehaviour
 {
     
     protected string[] state = new string[3] { "未發現", "已發現", "使用中" };
+    public string floor_tag = "地板";
     public string now_state;
     public int state_i = 0;
     public GameObject keep_slot;
+    public GameObject table_slot;
     protected GameObject parent;
     public float fly_speed = 0.01f;
 
@@ -22,6 +24,15 @@ public class ObjectEvent : MonoBehaviour
     protected void Update()
     {
         now_state = state[state_i];
+    }
+
+    //物品落地後 回歸原位
+    protected void OnCollisionEnter(Collision collision)
+    {
+        if(state_i == 1 && collision.gameObject.tag == floor_tag)
+        {
+            putit();
+        }
     }
 
     //當 互動鍵被按下時
@@ -74,9 +85,20 @@ public class ObjectEvent : MonoBehaviour
     public virtual void putit()
     {
         Debug.Log("OE被放下");
-        Destroy(keep_slot.transform.GetChild(0).gameObject.GetComponent<ObjectMove>());
-        keep_slot.transform.GetChild(0).gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        keep_slot.transform.GetChild(0).gameObject.transform.SetParent(parent.transform);
+        
+        GameObject it = this.gameObject;
+        ObjectMove itm;
+        if (it.TryGetComponent(out ObjectMove objectMove))
+            itm = objectMove;
+        else
+            itm = it.AddComponent<ObjectMove>();
+        itm.PathA = it;
+        itm.PathB = table_slot;
+        itm.Obj = it;
+        Destroy(itm, 0.5f);
+
+        it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        it.transform.SetParent(parent.transform);
 
     }
 }
