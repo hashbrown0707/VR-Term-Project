@@ -57,6 +57,11 @@ public class ObjectEvent : MonoBehaviour
     public void keepit(GameObject it)
     {
         Debug.Log("OE被拿取");
+        
+        if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
+        {
+            rotateKeep.ResetRotateAndPos();
+        }
 
         ObjectMove itm = it.AddComponent<ObjectMove>();
         itm.PathA = it;
@@ -92,6 +97,12 @@ public class ObjectEvent : MonoBehaviour
             itm = objectMove;
         else
             itm = it.AddComponent<ObjectMove>();
+
+        if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
+        {
+            rotateKeep.ResetRotateAndPos();
+        }
+
         itm.PathA = it;
         itm.PathB = table_slot;
         itm.Obj = it;

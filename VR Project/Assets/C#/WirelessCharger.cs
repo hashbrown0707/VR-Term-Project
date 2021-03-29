@@ -15,8 +15,16 @@ public class WirelessCharger: ObjectEvent
     new void Update()
     {
         base.Update();
-        if (state_i == 1)
+        if (state_i == 1 && !owlPhone.power)
+        {
             owlPhone.power = true;
+            owlPhone.text.text = "鎖定畫面";
+        }
+        else if (state_i == 0 && !owlPhone.power)
+        {
+            owlPhone.text.text = "電量：0%";
+        }
+            
     }
     public override void Keydown()
     {
