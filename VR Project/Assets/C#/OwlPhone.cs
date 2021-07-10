@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class OwlPhone : ObjectEvent
 {
     public bool power = false;
+    public GameObject password;
     public Text text;
 
     // Start is called before the first frame update
@@ -26,12 +27,12 @@ public class OwlPhone : ObjectEvent
     {
         if (state_i == 0)
             state_i = 1;
-        if (state_i == 1)
+        if (power && state_i == 1)
         {
             state_i = 2;
             Using();
         }
-        else if(state_i == 2)
+        else if(power && state_i == 2)
         {
             Unusing();
             state_i = 1;
@@ -42,6 +43,7 @@ public class OwlPhone : ObjectEvent
     new void Using()
     {
         Debug.Log("手機使用中");
+        password.GetComponent<PasswordSYS>().openpasswordtable();
     }
 
     new void Unusing()

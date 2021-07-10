@@ -45,11 +45,11 @@ public class RotateKeep : MonoBehaviour
             this.gameObject.transform.Rotate(0, -rotatespeed, 0);
         }
 
-        if (Input.GetKey("="))
+        if (Input.GetKey(KeyCode.KeypadPlus))
         {
             this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, max.transform.position, movespeed);
         }
-        if (Input.GetKey("-"))
+        if (Input.GetKey(KeyCode.KeypadMinus))
         {
             this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, min.transform.position, movespeed);
         }
