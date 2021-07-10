@@ -52,3 +52,16 @@ Update Mode: updateDependencies
 The following packages were updated:
   com.unity.ide.vscode from version 1.2.2 to 1.2.3
   com.unity.test-framework from version 1.1.18 to 1.1.20
+
+=== Sat Jul 10 21:06:27 2021
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were 已增加:
+  com.unity.ide.visualstudio@2.0.8
+The following packages were 已更新:
+  com.unity.ide.rider 從版本 1.1.4 到 1.2.1
+  com.unity.test-framework 從版本 1.1.20 到 1.1.24
+  com.unity.textmeshpro 從版本 2.1.1 到 2.1.4
+  com.unity.timeline 從版本 1.2.17 到 1.2.18
