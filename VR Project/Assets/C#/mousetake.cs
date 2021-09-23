@@ -55,16 +55,16 @@ public class mousetake : MonoBehaviour
             // 按下互動鍵"f"
             if (Input.GetKeyDown("f"))
             {
-                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                if (go.gameObject.TryGetComponent(out ObjectInteractive objectInteractive))
                 {
-                    objectEvent.Keydown();
+                    objectInteractive.Keydown();
                 }
             }
 
             //短按 拿到面前
             if (Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
             {
-                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                if (go.gameObject.TryGetComponent(out ObjectItem objectEvent))
                 {
                     objectEvent.state_i = 1;
                     objectEvent.keepit(go);
@@ -77,7 +77,7 @@ public class mousetake : MonoBehaviour
             //短按 放下
             else if (Input.GetMouseButtonDown(0) && keepobject)
             {
-                if (keep.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                if (keep.gameObject.TryGetComponent(out ObjectItem objectEvent))
                 {
                     objectEvent.putit();
                     keepobject = !keepobject;
@@ -88,7 +88,7 @@ public class mousetake : MonoBehaviour
             //長按 拖拽
             else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag)
             {
-                if (keep != null && keep.gameObject.TryGetComponent(out ObjectEvent keepobjectEvent))
+                if (keep != null && keep.gameObject.TryGetComponent(out ObjectItem keepobjectEvent))
                 {
                     keepobjectEvent.putit();
                     keepobject = !keepobject;
@@ -103,7 +103,7 @@ public class mousetake : MonoBehaviour
                 isdrage = true;
 
                 //拖曳後轉變狀態
-                if (go.gameObject.TryGetComponent(out ObjectEvent objectEvent))
+                if (go.gameObject.TryGetComponent(out ObjectItem objectEvent))
                     objectEvent.state_i = 1;
                     
             }

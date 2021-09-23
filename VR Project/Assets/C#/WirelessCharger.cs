@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WirelessCharger: ObjectEvent
+public class WirelessCharger: ObjectItem
 {
     public GameObject owlpple;
     private OwlPhone owlPhone;

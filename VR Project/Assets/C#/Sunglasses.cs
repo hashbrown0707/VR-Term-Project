@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sunglasses : ObjectEvent
+public class Sunglasses : ObjectItem
 {
     public GameObject diary;
     public GameObject diary_HL;

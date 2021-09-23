@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Diary : ObjectEvent
+public class Diary : ObjectItem
 {
     //當 互動鍵被按下時
     public override void Keydown()

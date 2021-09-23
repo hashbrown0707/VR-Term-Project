@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OwlPhone : ObjectEvent
+public class OwlPhone : ObjectItem
 {
     public bool power = false;
     public GameObject password;
