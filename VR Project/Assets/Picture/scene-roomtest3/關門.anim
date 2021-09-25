@@ -70,7 +70,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: GameObject
+    path: "\u78B0\u649E\u7BB1+\u7A0B\u5F0F\u5224\u65B7"
     classID: 65
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -82,7 +82,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1482111001
+      path: 2078423411
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 65
@@ -170,7 +170,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: GameObject
+    path: "\u78B0\u649E\u7BB1+\u7A0B\u5F0F\u5224\u65B7"
     classID: 65
     script: {fileID: 0}
   m_EulerEditorCurves: []
