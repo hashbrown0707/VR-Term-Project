@@ -13,7 +13,7 @@ public abstract class ObjectItem : ObjectInteractive
     public GameObject table_slot;
     protected GameObject parent;
     public float fly_speed = 0.01f;
-    public GameObject name;
+    public GameObject show_name;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +27,27 @@ public abstract class ObjectItem : ObjectInteractive
         now_state = state[state_i];
     }
 
+    Coroutine ptr_show_name_coroutine = null;
     //玩家看到物品後顯示名稱數秒(拿取光束)
     public void OnPlayerLookAt()
     {
-        name.SetActive(true);
-        StopAllCoroutines();
-        StartCoroutine(wait());
+        if (this.gameObject.transform.parent != keep_slot.transform) 
+        {
+            show_name.SetActive(true);
+            if (ptr_show_name_coroutine != null)
+                StopCoroutine(ptr_show_name_coroutine);
+            ptr_show_name_coroutine = StartCoroutine(show_name_coroutine());
+        }
+        else
+        {
+            show_name.SetActive(false);
+        }
     }
-    IEnumerator wait(int n=3)
+    IEnumerator show_name_coroutine(int n=3)
     {
         yield return new WaitForSeconds(n);
-        name.SetActive(false);
+        show_name.SetActive(false);
+        ptr_show_name_coroutine = null;
     }
 
     //物品落地後 回歸原位

@@ -17,9 +17,9 @@ public class OwlPhone : ObjectItem
     new void Update()
     {
         base.Update();
-        if (power && state_i == 1)
+        if (power && password.GetComponent<PasswordSYS>().pwlock)
             text.text = "鎖定畫面";
-        else if (power && state_i == 2)
+        else if (power && !password.GetComponent<PasswordSYS>().pwlock)
             text.text = "密碼：1234";
     }
     //當 互動鍵被按下時
@@ -50,4 +50,5 @@ public class OwlPhone : ObjectItem
     {
         Debug.Log("手機解除使用");
     }
+    
 }

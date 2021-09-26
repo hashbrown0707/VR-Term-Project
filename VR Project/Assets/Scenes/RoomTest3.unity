@@ -397,7 +397,7 @@ MonoBehaviour:
   keep_slot: {fileID: 1653286931}
   table_slot: {fileID: 0}
   fly_speed: 0.01
-  name: {fileID: 1365284106}
+  show_name: {fileID: 1365284106}
 --- !u!65 &128208908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -870,7 +870,7 @@ MonoBehaviour:
   keep_slot: {fileID: 1653286931}
   table_slot: {fileID: 0}
   fly_speed: 0.01
-  name: {fileID: 545764487}
+  show_name: {fileID: 545764487}
   power: 0
   password: {fileID: 1003060504}
   text: {fileID: 0}
@@ -1957,7 +1957,7 @@ MonoBehaviour:
   keep_slot: {fileID: 1653286931}
   table_slot: {fileID: 0}
   fly_speed: 0.01
-  name: {fileID: 1128040900}
+  show_name: {fileID: 1128040900}
   owlpple: {fileID: 412252940}
 --- !u!54 &709224546
 Rigidbody:
@@ -3021,6 +3021,7 @@ MonoBehaviour:
   player: {fileID: 948214722}
   keep_slot: {fileID: 1653286931}
   main_camera: {fileID: 1818581412}
+  pwlock: 1
 --- !u!114 &1003060507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6229,7 +6230,7 @@ MonoBehaviour:
   keep_slot: {fileID: 1653286931}
   table_slot: {fileID: 0}
   fly_speed: 0.01
-  name: {fileID: 1256661838}
+  show_name: {fileID: 1256661838}
   diary: {fileID: 128208905}
   diary_HL: {fileID: 128208912}
 --- !u!54 &2008756625

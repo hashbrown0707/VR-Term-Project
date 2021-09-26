@@ -17,6 +17,8 @@ public class Door : ObjectInteractive
     {
         
     }
+
+    Coroutine ptr_freeze_cd = null;
     //當 互動鍵被按下時
     public override void Keydown()
     {
@@ -32,13 +34,15 @@ public class Door : ObjectInteractive
             openorclose = !openorclose;
         }
         Debug.Log("嘗試開關門");
-        StopAllCoroutines();
-        StartCoroutine(wait());
+        if (ptr_freeze_cd != null)
+            StopCoroutine(ptr_freeze_cd);
+        ptr_freeze_cd = StartCoroutine(freeze_cd());
     }
 
-    IEnumerator wait()
+    IEnumerator freeze_cd()
     {
         yield return new WaitForSeconds(8f);
         door_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        ptr_freeze_cd = null;
     }
 }

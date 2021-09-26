@@ -11,6 +11,7 @@ public class PasswordSYS : MonoBehaviour
     public GameObject player;
     public GameObject keep_slot;
     public GameObject main_camera;
+    public bool pwlock = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,10 +74,12 @@ public class PasswordSYS : MonoBehaviour
         {
             exitbtn();
             Debug.Log("正確");
+            pwlock = false;
         }
         else
         {
             Debug.Log("password error");
+            pwlock = true;
         }
     }
 }
