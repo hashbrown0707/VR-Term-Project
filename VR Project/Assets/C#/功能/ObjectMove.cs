@@ -8,13 +8,13 @@ public class ObjectMove : MonoBehaviour
     public GameObject PathA;//起點
     public GameObject PathB;//終點
     public GameObject Obj;//要移動的物件
-    public float speed = 0.2f;//移動速度
+    public float speed = 200f;//移動速度
     private float firstSpeed;//紀錄第一次移動的距離
 
     private void Start()
     {
         // PathA 和 PathB 的距離乘上 speed
-        firstSpeed = Vector3.Distance(Obj.transform.position, PathB.transform.position) * speed;
+        firstSpeed = Vector3.Distance(Obj.transform.position, PathB.transform.position) * speed * Time.deltaTime;
     }
 
     private void Update()
@@ -23,7 +23,7 @@ public class ObjectMove : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             //先移動過後，再計算新的 speed
-            Obj.transform.position = Vector3.Lerp(Obj.transform.position, PathB.transform.position, speed);
+            Obj.transform.position = Vector3.Lerp(Obj.transform.position, PathB.transform.position, speed * Time.deltaTime);
             speed = calculateNewSpeed();
         }
     }

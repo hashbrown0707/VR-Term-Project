@@ -125,7 +125,7 @@ public class mousetake : MonoBehaviour
                 for (int i = 0; i < count; i++)
                     temp_t *= 倍率;
                 Debug.Log(temp_t + "/" + count);
-                player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, temp_t);
+                player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, temp_t * Time.deltaTime);
                 count = (count < max_count) ? count + 1 : max_count;
                 isdrage = true;
             }

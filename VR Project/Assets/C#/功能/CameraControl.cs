@@ -29,11 +29,11 @@ public class CameraControl: MonoBehaviour
         light_cd = (light_cd == 0) ? 0 : light_cd - 1;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            camera_gameobject.transform.Rotate(-rotatespeed, 0, 0);
+            camera_gameobject.transform.Rotate(-rotatespeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            camera_gameobject.transform.Rotate(rotatespeed, 0, 0);
+            camera_gameobject.transform.Rotate(rotatespeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetMouseButton(1))
         {

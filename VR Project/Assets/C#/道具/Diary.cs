@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Diary : ObjectItem
 {
+    private void Update()
+    {
+        base.Update();
+        if (state_i != 0)
+        {
+            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
     //當 互動鍵被按下時
     public override void Keydown()
     {
@@ -13,7 +21,11 @@ public class Diary : ObjectItem
         {
             state_i = 2;
             Using();
+        }
+        if(state_i == 2)
+        {
             state_i = 1;
+            Unusing();
         }
     }
 
