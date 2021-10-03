@@ -41,7 +41,6 @@ public class CameraControl: MonoBehaviour
             float rotationY = Input.GetAxis("Mouse Y") * sensitivityY;
             camera_gameobject.transform.Rotate(-rotationY, 0, 0);
             player.transform.Rotate(0, rotationX, 0);
-
         }
     }
 }
