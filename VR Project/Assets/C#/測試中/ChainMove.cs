@@ -9,6 +9,7 @@ public class ChainMove : MonoBehaviour
     public float t = 1f;
     public GameObject hand;
     public GameObject shoulder;
+    public ChainMove another;
     [SerializeField] KeyCode 發射切換;
     [SerializeField] KeyCode 收繩;
     //private Camera cam;//發射射線的攝像機
@@ -54,17 +55,22 @@ public class ChainMove : MonoBehaviour
             {
                 hand.GetComponent<HandleSimulator>().enabled = false;
                 isdrage = true;
-                player_rb.useGravity = false;
-                player_rb.constraints = RigidbodyConstraints.FreezeAll;
+                if (!another.isdrage)
+                {
+                    player_rb.useGravity = false;
+                    player_rb.constraints = RigidbodyConstraints.FreezeAll;
+                }
             }
             else if (Input.GetKeyDown(發射切換) && isdrage)
             {
                 hand.GetComponent<HandleSimulator>().enabled = true;
                 go = null;
                 isdrage = false;
-                player_rb.useGravity = true;
-                player_rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
-
+                if (!another.isdrage)
+                {
+                    player_rb.useGravity = true;
+                    player_rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+                }
             }
             else if(isdrage)
             {
