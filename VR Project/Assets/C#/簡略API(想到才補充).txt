@@ -1,0 +1,16 @@
+
+
+ObjectInteractive：
+	定義玩家互動的共同函式 Keydown()
+
+ObjectMove：
+	物件移動到指定位置
+	set(GameObject o, GameObject a, GameObject b, float s = 200f)
+
+ObjectItem：
+	定義通用道具
+	OnPlayerLookAt() 當玩家看到道具
+	Using() 使用道具中
+	Unusing() 解除使用道具
+	keepit(GameObject it) 當道具被拿取時
+	putit() 當道具被放下時

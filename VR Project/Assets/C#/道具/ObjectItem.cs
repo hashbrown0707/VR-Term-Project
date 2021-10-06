@@ -26,90 +26,89 @@ public abstract class ObjectItem : ObjectInteractive
     {
         now_state = state[state_i];
     }
-
-    Coroutine ptr_show_name_coroutine = null;
-    //玩家看到物品後顯示名稱數秒(拿取光束)
+    
+    /// <summary>
+    /// 當玩家看到道具
+    /// </summary>
     public void OnPlayerLookAt()
     {
-        if (this.gameObject.transform.parent != keep_slot.transform) 
+        show_name_n_sec(3);
+    }
+
+    Coroutine ptr_show_name_coroutine = null;
+    /// <summary>
+    /// 顯示道具名稱 n 秒
+    /// </summary>
+    /// <param name="n">秒</param>
+    void show_name_n_sec(float n)
+    {
+        if (this.gameObject.transform.parent != keep_slot.transform)
         {
             show_name.SetActive(true);
             if (ptr_show_name_coroutine != null)
                 StopCoroutine(ptr_show_name_coroutine);
-            ptr_show_name_coroutine = StartCoroutine(show_name_coroutine());
+            ptr_show_name_coroutine = StartCoroutine(show_name_coroutine(n));
         }
         else
-        {
             show_name.SetActive(false);
-        }
     }
-    IEnumerator show_name_coroutine(int n=3)
+
+    /// <summary>
+    /// 道具名稱持續顯示
+    /// </summary>
+    /// <param name="n">秒</param>
+    /// <returns></returns>
+    IEnumerator show_name_coroutine(float n)
     {
         yield return new WaitForSeconds(n);
         show_name.SetActive(false);
         ptr_show_name_coroutine = null;
     }
 
-    //物品落地後 回歸原位
+    /// <summary>
+    /// 物品落地後 回歸原位
+    /// </summary>
+    /// <param name="collision"></param>
     protected void OnCollisionEnter(Collision collision)
     {
         if(state_i == 1 && collision.gameObject.tag == floor_tag)
-        {
             putit();
-        }
     }
 
-    //使用中
+    /// <summary>
+    /// 使用道具中
+    /// </summary>
     public abstract void Using();
-    //{
-        //Debug.Log("ObjectItem 使用中");
-    //}
 
-    //解除使用
+    /// <summary>
+    /// 解除使用道具
+    /// </summary>
     public abstract void Unusing();
-    //{
-        //Debug.Log("ObjectItem 解除使用");
-    //}
 
-    //當 被拿取時
+    /// <summary>
+    /// 當道具被拿取時
+    /// </summary>
+    /// <param name="it"></param>
     public void keepit(GameObject it)
     {
         Debug.Log("ObjectItem 被拿取");
-        
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
-        {
             rotateKeep.ResetRotateAndPos();
-        }
 
         ObjectMove itm = it.AddComponent<ObjectMove>();
-        itm.PathA = it;
-        itm.PathB = keep_slot;
-        itm.Obj = it;
-
-        /*int temp = 100;
-        while (temp-->0)
-            it.transform.position = Vector3.Lerp(it.transform.position, keep_slot.transform.position, fly_speed);*/
-
-        //wait(1);
-
-
+        itm.set(it, it, keep_slot);
         parent = it.transform.parent.gameObject;
         it.transform.SetParent(keep_slot.transform);
         it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
     }
 
-    private IEnumerator wait(float sec)
-    {
-        yield return new WaitForSeconds(sec);
-    }
-
-    //當 被放下時
+    /// <summary>
+    /// 當道具被放下時
+    /// </summary>
     public virtual void putit()
     {
         Unusing();
         Debug.Log("ObjectItem 被放下");
-        
         GameObject it = this.gameObject;
         ObjectMove itm;
         if (it.TryGetComponent(out ObjectMove objectMove))
@@ -118,17 +117,13 @@ public abstract class ObjectItem : ObjectInteractive
             itm = it.AddComponent<ObjectMove>();
 
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
-        {
             rotateKeep.ResetRotateAndPos();
-        }
 
-        itm.PathA = it;
-        itm.PathB = table_slot;
-        itm.Obj = it;
+        if (this.table_slot != null)
+            itm.set(it, it, table_slot);
+
         Destroy(itm, 0.5f);
-
         it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         it.transform.SetParent(parent.transform);
-
     }
 }

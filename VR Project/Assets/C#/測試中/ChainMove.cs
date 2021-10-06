@@ -29,26 +29,19 @@ public class ChainMove : MonoBehaviour
     {
         if (!isdrage)
         {
-            //Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             Ray ray = new Ray(hand.transform.position, hand.transform.position - shoulder.transform.position);
             RaycastHit hitInfo;
 
             if (Physics.Raycast(ray, out hitInfo))
             {
                 Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-                //Debug.DrawLine(this.transform.position, shoulder.transform.position, Color.cyan);
-
                 go = hitInfo.collider.gameObject;
                 hit = hitInfo;
-                //Vector3 currentPosition = new Vector3(hitInfo.point.x, player.transform.position.y, hitInfo.point.z);
-
-                //player.transform.position = Vector3.Lerp(player.transform.position, currentPosition, t * Time.deltaTime);
             }
             else
-            {
                 hit = new RaycastHit();
-            }
         }
+
         if (go != null)
         {
             if (Input.GetKeyDown(發射切換) && !isdrage)

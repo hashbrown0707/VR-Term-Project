@@ -1,15 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 物件移動的組件
+/// </summary>
 public class ObjectMove : MonoBehaviour
 {
 
-    public GameObject PathA;//起點
-    public GameObject PathB;//終點
-    public GameObject Obj;//要移動的物件
-    public float speed = 200f;//移動速度
+    private GameObject PathA;//起點
+    private GameObject PathB;//終點
+    private GameObject Obj;//要移動的物件
+    private float speed;//移動速度
     private float firstSpeed;//紀錄第一次移動的距離
+
+    /// <summary>
+    /// 設定 物件o 由 a點 移動到 b點
+    /// </summary>
+    /// <param name="o">被移動的物件</param>
+    /// <param name="a">起點</param>
+    /// <param name="b">終點</param>
+    /// <param name="s">移動速度</param>
+    public void set(GameObject o, GameObject a, GameObject b, float s = 200f) 
+    {
+        Obj = o;
+        PathA = a;
+        PathB = b;
+        speed = s;
+    }
 
     private void Start()
     {

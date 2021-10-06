@@ -27,7 +27,6 @@ public class mousetake : MonoBehaviour
         cam = Camera.main;
     }
 
-
     void Update()
     {
         if (isdrage == false)

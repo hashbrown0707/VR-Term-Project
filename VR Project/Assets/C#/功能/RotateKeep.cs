@@ -55,9 +55,12 @@ public class RotateKeep : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 重置keep格的旋轉與放大縮小
+    /// </summary>
     public void ResetRotateAndPos()
     {
-        this.gameObject.transform.position = min.transform.position;
-        this.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        gameObject.transform.position = min.transform.position;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

@@ -6,7 +6,7 @@ public class WirelessCharger: ObjectItem
 {
     public GameObject owlpple;
     private OwlPhone owlPhone;
-    private void Start()
+    void Start()
     {
         owlPhone = owlpple.GetComponent<OwlPhone>();
     }

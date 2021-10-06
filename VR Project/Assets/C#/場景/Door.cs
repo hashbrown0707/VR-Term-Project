@@ -8,37 +8,27 @@ public class Door : ObjectInteractive
     public Animator dooranim;
     public bool openorclose = false;
     public Rigidbody door_rigidbody;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-    void Update()
-    {
-        
-    }
-
-    Coroutine ptr_freeze_cd = null;
+    
     //當 互動鍵被按下時
     public override void Keydown()
     {
         door_rigidbody.constraints = RigidbodyConstraints.None;
-        if (!openorclose)
-        {
-            dooranim.SetBool("開門", true);
-            openorclose = !openorclose;
-        }
-        else
-        {
-            dooranim.SetBool("開門", false);
-            openorclose = !openorclose;
-        }
+        
+        dooranim.SetBool("開門", !openorclose);
+        openorclose = !openorclose;
+
         Debug.Log("嘗試開關門");
         if (ptr_freeze_cd != null)
             StopCoroutine(ptr_freeze_cd);
         ptr_freeze_cd = StartCoroutine(freeze_cd());
     }
 
+    Coroutine ptr_freeze_cd = null;
+
+    /// <summary>
+    /// 經過8秒後 鎖定門的剛體
+    /// </summary>
+    /// <returns></returns>
     IEnumerator freeze_cd()
     {
         yield return new WaitForSeconds(8f);

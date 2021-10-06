@@ -22,10 +22,16 @@ public class MouseViewingContorl : MonoBehaviour
     {
         ViewingContorl();
     }
+
+    /// <summary>
+    /// 設定新的視角控制按鍵
+    /// </summary>
+    /// <param name="newbtn"></param>
     public void switch視角控制btn(KeyCode newbtn)
     {
         視角控制btn = newbtn;
     }
+
     void ViewingContorl()
     {
         if (Input.GetKey(視角控制btn))
