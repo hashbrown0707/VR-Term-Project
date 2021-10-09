@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 using UnityEditor;
+using Valve.VR.Extras;
 
 public class ChainMove : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class ChainMove : MonoBehaviour
     private GameObject go;//射線碰撞的物體
     private bool isdrage = false;
     private RaycastHit hit;
+
+    [SerializeField] LineRenderer line;
 
     //以下steamVR q2 官方配置
     private SteamVR_Action_Boolean gp = SteamVR_Input.GetBooleanAction("GrabPinch");
@@ -51,23 +54,23 @@ public class ChainMove : MonoBehaviour
     void Start()
     {
         //cam = Camera.main;
+        line = gameObject.GetComponent<LineRenderer>();
+        line.positionCount = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        line.SetPosition(0, shoulder.transform.position);
+        line.SetPosition(1, transform.position);
         if (!isdrage)
         {
             Ray ray = new Ray(hand.transform.position, hand.transform.position - shoulder.transform.position);
             RaycastHit hitInfo;
-            Debug.Log(ray);
-            Debug.DrawLine(shoulder.transform.position, ray.origin, Color.yellow);
-            drawline(shoulder.transform.position, ray.origin, Color.yellow);
+            line.SetPosition(2, transform.position);
             if (Physics.Raycast(ray, out hitInfo))
             {
-                Debug.Log(hitInfo);
-                Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-                drawline(ray.origin, hitInfo.point, Color.red);
+                line.SetPosition(2, hitInfo.point);
                 go = hitInfo.collider.gameObject;
                 hit = hitInfo;
             }
@@ -102,8 +105,6 @@ public class ChainMove : MonoBehaviour
             }
             else if(isdrage)
             {
-                Debug.DrawLine(this.transform.position, hit.point, Color.green);
-                drawline(this.transform.position, hit.point, Color.green);
                 if (Input.GetKey(收繩) ||  VR_收繩())
                 {
                     Vector3 currentPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
@@ -116,11 +117,5 @@ public class ChainMove : MonoBehaviour
                 go = null;
             }
         }
-    }
-
-    void drawline(Vector3 a,Vector3 b,Color c)
-    {
-        //Handles.color = c;
-        //Handles.DrawLine(a, b);
     }
 }
