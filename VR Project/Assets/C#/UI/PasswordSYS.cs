@@ -30,10 +30,10 @@ public class PasswordSYS : MonoBehaviour
         {
             ps_slot[i].GetComponent<Image>().sprite = num_none;
         }
-        player.GetComponent<PlayerMove>().enabled = false;
-        player.GetComponent<mousetake>().enabled = false;
+        //player.GetComponent<PlayerMove>().enabled = false;
+        //player.GetComponent<mousetake>().enabled = false;
         keep_slot.GetComponent<RotateKeep>().enabled = false;
-        main_camera.GetComponent<CameraControl>().enabled = false;
+        //main_camera.GetComponent<CameraControl>().enabled = false;
         this.gameObject.SetActive(true);
     }
 
