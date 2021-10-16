@@ -100,6 +100,8 @@ public abstract class ObjectItem : ObjectInteractive
         parent = it.transform.parent.gameObject;
         it.transform.SetParent(keep_slot.transform);
         it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+        keep_slot.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     /// <summary>
@@ -121,8 +123,9 @@ public abstract class ObjectItem : ObjectInteractive
 
         if (this.table_slot != null)
             itm.set(it, it, table_slot);
+        
+        itm.destory = true;
 
-        Destroy(itm, 0.5f);
         it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         it.transform.SetParent(parent.transform);
     }

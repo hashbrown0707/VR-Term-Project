@@ -184,6 +184,10 @@ public class ChainMoveVR : MonoBehaviour
             {
                 objectInteractive.Keydown();
             }
+            else if (hitinfo.collider.gameObject.TryGetComponent(out VR_UIBtn btn))
+            {
+                btn.OnHit();
+            }
         }
         
         //短按 拿到面前
@@ -211,6 +215,11 @@ public class ChainMoveVR : MonoBehaviour
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = Color.cyan;
+        }
+        else if(bHit && hitinfo.collider.gameObject.TryGetComponent(out VR_UIBtn btn))
+        {
+            pointer.transform.localScale = new Vector3(thickness, thickness, dist);
+            pointer.GetComponent<MeshRenderer>().material.color = Color.magenta;
         }
         else
         {

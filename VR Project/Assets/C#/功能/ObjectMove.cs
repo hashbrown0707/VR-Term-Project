@@ -12,6 +12,7 @@ public class ObjectMove : MonoBehaviour
     private GameObject Obj;//要移動的物件
     private float speed;//移動速度
     private float firstSpeed;//紀錄第一次移動的距離
+    public bool destory = false;
 
     /// <summary>
     /// 設定 物件o 由 a點 移動到 b點
@@ -42,6 +43,8 @@ public class ObjectMove : MonoBehaviour
             //先移動過後，再計算新的 speed
             Obj.transform.position = Vector3.Lerp(Obj.transform.position, PathB.transform.position, speed * Time.deltaTime);
             speed = calculateNewSpeed();
+            if (speed == 0 && destory)
+                Destroy(this);
         }
     }
 
