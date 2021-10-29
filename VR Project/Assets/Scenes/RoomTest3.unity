@@ -5650,6 +5650,7 @@ GameObject:
   - component: {fileID: 1818581415}
   - component: {fileID: 1818581414}
   - component: {fileID: 1818581417}
+  - component: {fileID: 1818581418}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5758,6 +5759,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &1818581418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818581412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a989af372fde948a97aefc99f5c167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderShader: {fileID: 4800000, guid: c498512f08408f046936cedc7894f433, type: 3}
+  colorWigth: 3
+  normalWight: 8
+  depthWight: 3
+  power: 200
+  _plusValue: 27.7
+  _radius: 1
+  _scale: 20
+  _rednerType: 1
+  backGruondTexture: {fileID: 2800000, guid: 69d58f8aa3af42745ac2e2a875bd25ea, type: 3}
+  colorStart: {r: 0, g: 0, b: 0, a: 1}
+  colorEnd: {r: 0, g: 0, b: 0, a: 1}
+  angle: 0
+  _attenuation: 1
 --- !u!1 &1857857615
 GameObject:
   m_ObjectHideFlags: 0
