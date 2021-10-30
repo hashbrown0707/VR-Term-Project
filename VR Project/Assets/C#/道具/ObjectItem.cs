@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class ObjectItem : ObjectInteractive
 {
-    
-    protected string[] state = new string[3] { "未發現", "已發現", "使用中" };
+    /// <summary>
+    /// 0="未發現" 1="已發現" 2="拿取中" 3="使用中"
+    /// </summary>
+    int state = 0;
     public string floor_tag = "地板";
-    public string now_state;
-    public int state_i = 0;
     public GameObject keep_slot;
     public GameObject table_slot;
     protected GameObject parent;
@@ -19,12 +19,15 @@ public abstract class ObjectItem : ObjectInteractive
     void Start()
     {
         this.gameObject.tag = "可拿取";
+        var cp = this.gameObject.AddComponent<ContentPrinter>();
+        if (gameObject.transform.childCount >= 2)
+            cp.canvas = gameObject.transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
-    protected void Update()
+    void Update()
     {
-        now_state = state[state_i];
+
     }
     
     /// <summary>
@@ -71,7 +74,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// <param name="collision"></param>
     protected void OnCollisionEnter(Collision collision)
     {
-        if(state_i == 1 && collision.gameObject.tag == floor_tag)
+        if(state == 1 && collision.gameObject.tag == floor_tag)
             putit();
     }
 
@@ -89,8 +92,9 @@ public abstract class ObjectItem : ObjectInteractive
     /// 當道具被拿取時
     /// </summary>
     /// <param name="it"></param>
-    public void keepit(GameObject it)
+    public virtual void keepit(GameObject it)
     {
+        SetState(2);
         Debug.Log("ObjectItem 被拿取");
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
@@ -109,6 +113,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     public virtual void putit()
     {
+        SetState(1);
         Unusing();
         Debug.Log("ObjectItem 被放下");
         GameObject it = this.gameObject;
@@ -128,5 +133,44 @@ public abstract class ObjectItem : ObjectInteractive
 
         it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         it.transform.SetParent(parent.transform);
+    }
+
+    /// <summary>
+    /// 0="未發現" 1="已發現" 2="拿取中" 3="使用中"
+    /// </summary>
+    public int GetState()
+    {
+        return state;
+    }
+
+    /// <summary>
+    /// 設定狀態 0="未發現" 1="已發現" 2="拿取中" 3="使用中"
+    /// </summary>
+    public void SetState(int s)
+    {
+        if(state != s)
+        {
+            if (state == 0)
+                OnBeFound();
+            else if (state == 1)
+                OnTake();
+            state = s;
+        }
+    }
+
+    /// <summary>
+    /// 被發現時
+    /// </summary>
+    protected virtual void OnBeFound()
+    {
+
+    }
+
+    /// <summary>
+    /// 被拿取時
+    /// </summary>
+    protected virtual void OnTake()
+    {
+
     }
 }

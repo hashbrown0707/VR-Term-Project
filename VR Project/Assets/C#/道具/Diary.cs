@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class Diary : ObjectItem
 {
-    new void Update()
-    {
-        base.Update();
-        if (state_i != 0)
-            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
-    }
     //當 互動鍵被按下時
     public override void Keydown()
     {
-        if (state_i == 0)
-            state_i = 1;
-        if (state_i == 1)
+        int temp_s = GetState();
+        if (temp_s == 0)
+            SetState(1);
+        if (temp_s == 2)
         {
-            state_i = 2;
             Using();
         }
-        if(state_i == 2)
+        else if(temp_s == 3)
         {
-            state_i = 1;
             Unusing();
         }
     }
@@ -30,12 +23,20 @@ public class Diary : ObjectItem
     //使用中
     public override void Using()
     {
+        SetState(3);
         Debug.Log("日記閱讀中");
     }
 
     //解除使用
     public override void Unusing()
     {
+        SetState(1);
         Debug.Log("放下日記");
+    }
+
+    protected override void OnBeFound()
+    {
+        base.OnBeFound();
+        this.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }
 }

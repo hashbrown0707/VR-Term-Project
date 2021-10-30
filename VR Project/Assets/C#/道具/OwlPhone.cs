@@ -13,41 +13,35 @@ public class OwlPhone : ObjectItem
     void Start()
     {
         text = this.gameObject.GetComponentInChildren<Canvas>().GetComponentInChildren<Text>();
-    }
-    new void Update()
-    {
-        base.Update();
-        if (power && password.GetComponent<PasswordSYS>().pwlock)
-            text.text = "鎖定畫面";
-        else if (power && !password.GetComponent<PasswordSYS>().pwlock)
-            text.text = "密碼：1234";
+        text.text = "電量：0%";
     }
     //當 互動鍵被按下時
     public override void Keydown()
     {
-        if (state_i == 0)
-            state_i = 1;
-        if (power && state_i == 1)
+        int temp_s = GetState();
+        if (temp_s == 0)
+            SetState(1);
+        if (power && temp_s == 2)
         {
-            state_i = 2;
             Using();
         }
-        else if(power && state_i == 2)
+        else if (power && temp_s == 3)
         {
             Unusing();
-            state_i = 1;
         }
     }
 
     //使用中
     public override void Using()
     {
+        SetState(3);
         Debug.Log("手機使用中");
         password.GetComponent<PasswordSYS>().openpasswordtable();
     }
 
     public override void Unusing()
     {
+        SetState(1);
         Debug.Log("手機解除使用");
     }
     

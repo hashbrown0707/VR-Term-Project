@@ -70,7 +70,6 @@ public class mousetake : MonoBehaviour
             {
                 if (go.gameObject.TryGetComponent(out ObjectItem objectItem))
                 {
-                    objectItem.state_i = 1;
                     objectItem.keepit(go);
                     keep = go;
                     keepobject = !keepobject;
@@ -108,7 +107,7 @@ public class mousetake : MonoBehaviour
 
                 //拖曳後轉變狀態
                 if (go.gameObject.TryGetComponent(out ObjectItem objectItem))
-                    objectItem.state_i = 1;
+                    objectItem.SetState(1);
                     
             }
             //魯味的鉤
