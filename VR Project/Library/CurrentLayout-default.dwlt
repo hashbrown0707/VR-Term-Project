@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 771
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 677, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 133
+  controlID: 155
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 380
     height: 771
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 387
     height: 417
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -150,7 +150,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 821
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -216,10 +216,10 @@ MonoBehaviour:
     y: 0
     width: 1156
     height: 771
-  m_MinSize: {x: 403, y: 492}
+  m_MinSize: {x: 402, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 147
+  controlID: 51
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -241,10 +241,10 @@ MonoBehaviour:
     y: 0
     width: 1156
     height: 417
-  m_MinSize: {x: 403, y: 221}
-  m_MaxSize: {x: 8003, y: 4021}
+  m_MinSize: {x: 402, y: 221}
+  m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 71
+  controlID: 52
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -376,20 +376,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - "Assets/\u7F8E\u8853/scene-roomtest3"
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - "Assets/\u7F8E\u8853/scene-roomtest3"
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Unity\VR-Term-Project\VR Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 75}
-    m_SelectedIDs: 8a420000
-    m_LastClickedID: 17034
-    m_ExpandedIDs: 00000000fa410000fc410000fe41000000420000024200000442000006420000084200000a4200000c4200003042000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 12420000
+    m_LastClickedID: 16914
+    m_ExpandedIDs: 00000000124200001442000016420000184200001a4200001c4200001e4200002042000022420000244200002a4200002c4200005a42000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -417,7 +417,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fa410000fc410000fe41000000420000024200000442000006420000084200000a4200000c4200000e420000
+    m_ExpandedIDs: 00000000124200001442000016420000184200001a4200001c4200001e420000204200002242000024420000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -445,7 +445,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c623000000410000a03f00007a4f00000000000040430000
+    m_ExpandedInstanceIDs: c623000000410000a03f00007a4f00004043000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -540,9 +540,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 10e7ffff
-      m_LastClickedID: -6384
-      m_ExpandedIDs: 70f2ffffbef6ffff64fbffff3a400000624000006c400000ec400000
+      m_SelectedIDs: fcf7ffff
+      m_LastClickedID: -2052
+      m_ExpandedIDs: 64fbffff144000004840000092400000f8400000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -602,9 +602,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 58.061737, y: 75.25681, z: 294.06763}
+    m_Target: {x: 6.5219545, y: 110.50424, z: 178.56927}
     speed: 2
-    m_Value: {x: 58.061737, y: 75.25681, z: 294.06763}
+    m_Value: {x: 6.5219545, y: 110.50424, z: 178.56927}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -650,13 +650,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.109751195, y: -0.13465564, z: 0.015010897, w: -0.98468816}
+    m_Target: {x: -0.1572323, y: -0.11615054, z: 0.018630976, w: -0.9805386}
     speed: 2
-    m_Value: {x: -0.10975045, y: -0.13465473, z: 0.015010795, w: -0.9846815}
+    m_Value: {x: -0.15723105, y: -0.11614961, z: 0.018630827, w: -0.9805308}
   m_Size:
-    m_Target: 154.34254
+    m_Target: 111.716415
     speed: 2
-    m_Value: 154.34254
+    m_Value: 111.716415
   m_Ortho:
     m_Target: 0
     speed: 2
