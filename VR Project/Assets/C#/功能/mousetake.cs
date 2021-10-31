@@ -70,7 +70,7 @@ public class mousetake : MonoBehaviour
             {
                 if (go.gameObject.TryGetComponent(out ObjectItem objectItem))
                 {
-                    objectItem.keepit(go);
+                    objectItem.SetState(2);
                     keep = go;
                     keepobject = !keepobject;
                     take_cd = 60;
@@ -82,7 +82,7 @@ public class mousetake : MonoBehaviour
             {
                 if (keep.gameObject.TryGetComponent(out ObjectItem objectItem))
                 {
-                    objectItem.putit();
+                    objectItem.SetState(1);
                     keepobject = !keepobject;
                     keep = null;
                     take_cd = 0;
@@ -93,7 +93,7 @@ public class mousetake : MonoBehaviour
             {
                 if (keep != null && keep.gameObject.TryGetComponent(out ObjectItem keepobjectItem))
                 {
-                    keepobjectItem.putit();
+                    keepobjectItem.SetState(1);
                     keepobject = !keepobject;
                     keep = null;
                     take_cd = 0;

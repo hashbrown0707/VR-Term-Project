@@ -15,7 +15,7 @@ public abstract class ObjectItem : ObjectInteractive
     public GameObject table_slot;
     protected GameObject parent;
     public float fly_speed = 0.01f;
-    public GameObject show_name;
+    private GameObject show_name;
     public GameObject name_prefab;
     public GameObject content_prefab;
 
@@ -47,28 +47,20 @@ public abstract class ObjectItem : ObjectInteractive
     {
 
     }
-    
-    /// <summary>
-    /// 當玩家看到道具
-    /// </summary>
-    public void OnPlayerLookAt()
-    {
-        show_name_n_sec(3);
-    }
 
     Coroutine ptr_show_name_coroutine = null;
     /// <summary>
     /// 顯示道具名稱 n 秒
     /// </summary>
     /// <param name="n">秒</param>
-    void show_name_n_sec(float n)
+    void ShowNameForSec(float n)
     {
-        if (this.gameObject.transform.parent != keep_slot.transform)
+        if (transform.parent != keep_slot.transform)
         {
             show_name.SetActive(true);
             if (ptr_show_name_coroutine != null)
                 StopCoroutine(ptr_show_name_coroutine);
-            ptr_show_name_coroutine = StartCoroutine(show_name_coroutine(n));
+            ptr_show_name_coroutine = StartCoroutine(ShowNameCoroutine(n));
         }
         else
             show_name.SetActive(false);
@@ -79,21 +71,11 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     /// <param name="n">秒</param>
     /// <returns></returns>
-    IEnumerator show_name_coroutine(float n)
+    IEnumerator ShowNameCoroutine(float n)
     {
         yield return new WaitForSeconds(n);
         show_name.SetActive(false);
         ptr_show_name_coroutine = null;
-    }
-
-    /// <summary>
-    /// 物品落地後 回歸原位
-    /// </summary>
-    /// <param name="collision"></param>
-    protected void OnCollisionEnter(Collision collision)
-    {
-        if(state == 1 && collision.gameObject.tag == floor_tag)
-            putit();
     }
 
     /// <summary>
@@ -109,19 +91,17 @@ public abstract class ObjectItem : ObjectInteractive
     /// <summary>
     /// 當道具被拿取時
     /// </summary>
-    /// <param name="it"></param>
-    public virtual void keepit(GameObject it)
+    public virtual void KeepIt()
     {
-        SetState(2);
         Debug.Log("ObjectItem 被拿取");
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
 
-        ObjectMove itm = it.AddComponent<ObjectMove>();
-        itm.set(it, it, keep_slot);
-        parent = it.transform.parent.gameObject;
-        it.transform.SetParent(keep_slot.transform);
-        it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        ObjectMove itm = gameObject.AddComponent<ObjectMove>();
+        itm.set(gameObject, gameObject, keep_slot);
+        parent = transform.parent.gameObject;
+        transform.SetParent(keep_slot.transform);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         keep_slot.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
@@ -129,28 +109,25 @@ public abstract class ObjectItem : ObjectInteractive
     /// <summary>
     /// 當道具被放下時
     /// </summary>
-    public virtual void putit()
+    public virtual void PutIt()
     {
-        SetState(1);
-        Unusing();
         Debug.Log("ObjectItem 被放下");
-        GameObject it = this.gameObject;
         ObjectMove itm;
-        if (it.TryGetComponent(out ObjectMove objectMove))
+        if (TryGetComponent(out ObjectMove objectMove))
             itm = objectMove;
         else
-            itm = it.AddComponent<ObjectMove>();
+            itm = gameObject.AddComponent<ObjectMove>();
 
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
 
-        if (this.table_slot != null)
-            itm.set(it, it, table_slot);
+        if (table_slot != null)
+            itm.set(gameObject, gameObject, table_slot);
         
         itm.destory = true;
 
-        it.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        it.transform.SetParent(parent.transform);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        transform.SetParent(parent.transform);
     }
 
     /// <summary>
@@ -168,10 +145,17 @@ public abstract class ObjectItem : ObjectInteractive
     {
         if(state != s)
         {
-            if (state == 0)
+            if (state == 0 && s == 2)
+            {
                 OnBeFound();
-            else if (state == 1)
                 OnTake();
+            }
+            else if (state == 0)
+                OnBeFound();
+            else if (state == 1 && s == 2)
+                OnTake();
+            else if (state == 1 && s == 3)
+                OnUse();
             else if (state == 2 && s == 1)
                 OnPut();
             else if (state == 2 && s == 3)
@@ -189,11 +173,29 @@ public abstract class ObjectItem : ObjectInteractive
     }
 
     /// <summary>
+    /// 當玩家看到道具
+    /// </summary>
+    public void OnPlayerLookAt()
+    {
+        ShowNameForSec(3);
+    }
+
+    /// <summary>
+    /// 物品落地後 回歸原位
+    /// </summary>
+    /// <param name="collision"></param>
+    protected void OnCollisionEnter(Collision collision)
+    {
+        if (state == 1 && collision.gameObject.CompareTag(floor_tag))
+            PutIt();
+    }
+
+    /// <summary>
     /// 被發現時
     /// </summary>
     protected virtual void OnBeFound()
     {
-
+        
     }
 
     /// <summary>
@@ -201,7 +203,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     protected virtual void OnTake()
     {
-
+        KeepIt();
     }
 
     /// <summary>
@@ -209,7 +211,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     protected virtual void OnPut()
     {
-
+        PutIt();
     }
 
     /// <summary>
@@ -217,7 +219,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     protected virtual void OnUse()
     {
-
+        Using();
     }
 
     /// <summary>
@@ -225,6 +227,6 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     protected virtual void OnUnuse()
     {
-
+        Unusing();
     }
 }

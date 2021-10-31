@@ -15,18 +15,18 @@ public class Sunglasses : ObjectItem
             SetState(1);
         if (temp_s == 2)
         {
-            Using();
+            SetState(3);
         }
         else if (temp_s == 3)
         {
-            Unusing();
+            SetState(2);
         }
     }
 
     //使用中
     public override void Using()
     {
-        SetState(3);
+        //SetState(3);
         Debug.Log("墨鏡使用中");
         diary_HL.enabled = true;
     }
@@ -34,7 +34,7 @@ public class Sunglasses : ObjectItem
     //解除使用
     public override void Unusing()
     {
-        SetState(1);
+        //SetState(1);
         Debug.Log("墨鏡解除使用");
         diary_HL.enabled = false;
     }

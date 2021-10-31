@@ -195,7 +195,8 @@ public class ChainMoveVR : MonoBehaviour
         {
             if (hitinfo.collider.gameObject.TryGetComponent(out ObjectItem objectItem))
             {
-                objectItem.keepit(hitinfo.collider.gameObject);
+                //objectItem.KeepIt(hitinfo.collider.gameObject);
+                objectItem.SetState(2);
                 keep = hitinfo.collider.gameObject;
                 take_cd = 60;
             }
@@ -205,7 +206,7 @@ public class ChainMoveVR : MonoBehaviour
         {
             if (keep.TryGetComponent(out ObjectItem objectItem))
             {
-                objectItem.putit();
+                objectItem.SetState(1);
                 keep = null;
                 take_cd = 0;
             }

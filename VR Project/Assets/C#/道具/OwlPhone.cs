@@ -23,25 +23,25 @@ public class OwlPhone : ObjectItem
             SetState(1);
         if (power && temp_s == 2)
         {
-            Using();
+            SetState(3);
         }
         else if (power && temp_s == 3)
         {
-            Unusing();
+            SetState(2);
         }
     }
 
     //使用中
     public override void Using()
     {
-        SetState(3);
+        //SetState(3);
         Debug.Log("手機使用中");
         password.GetComponent<PasswordSYS>().openpasswordtable();
     }
 
     public override void Unusing()
     {
-        SetState(1);
+        //SetState(1);
         Debug.Log("手機解除使用");
     }
     

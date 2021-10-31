@@ -19,7 +19,7 @@ public class WirelessCharger: ObjectItem
 
         if (owlPhone.GetState() == 2 && temp_s == 1 && !owlPhone.power) 
         {
-            Using();
+            SetState(3);
             StartCoroutine("charge");
         }
     }
@@ -27,14 +27,14 @@ public class WirelessCharger: ObjectItem
     //使用中
     public override void Using()
     {
-        SetState(2);
+        //SetState(2);
         Debug.Log("充電器使用中");
     }
 
     //解除使用
     public override void Unusing()
     {
-        SetState(1);
+        //SetState(1);
         Debug.Log("充電器解除使用");
     }
 
@@ -47,6 +47,7 @@ public class WirelessCharger: ObjectItem
         }
         owlPhone.power = true;
         owlPhone.text.text = "鎖定畫面";
-        Unusing();
+        //Unusing();
+        SetState(1);
     }
 }
