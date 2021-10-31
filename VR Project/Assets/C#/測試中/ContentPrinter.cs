@@ -13,7 +13,7 @@ public class ContentPrinter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        content = canvas.transform.GetChild(0).GetComponent<Text>();
+        content = canvas.transform.Find("Text").GetComponent<Text>();
     }
 
     // Update is called once per frame

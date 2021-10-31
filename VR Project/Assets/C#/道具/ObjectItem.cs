@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public abstract class ObjectItem : ObjectInteractive
 {
@@ -14,14 +16,30 @@ public abstract class ObjectItem : ObjectInteractive
     protected GameObject parent;
     public float fly_speed = 0.01f;
     public GameObject show_name;
+    public GameObject name_prefab;
+    public GameObject content_prefab;
+
+    void Awake()
+    {
+        this.gameObject.tag = "可拿取";
+        /*var cp = this.gameObject.AddComponent<ContentPrinter>();
+        if (gameObject.transform.childCount >= 2)
+            cp.canvas = gameObject.transform.GetChild(1).gameObject;*/
+
+        var np = Instantiate(name_prefab, this.transform, false);
+        np.transform.Find("Text").GetComponent<Text>().text = this.name;
+        show_name = np;
+
+        var cp = Instantiate(content_prefab, this.transform, false);
+        
+        var contentprinter = this.gameObject.AddComponent<ContentPrinter>();
+        contentprinter.canvas = cp;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.tag = "可拿取";
-        var cp = this.gameObject.AddComponent<ContentPrinter>();
-        if (gameObject.transform.childCount >= 2)
-            cp.canvas = gameObject.transform.GetChild(1).gameObject;
+        
     }
 
     // Update is called once per frame
@@ -154,6 +172,18 @@ public abstract class ObjectItem : ObjectInteractive
                 OnBeFound();
             else if (state == 1)
                 OnTake();
+            else if (state == 2 && s == 1)
+                OnPut();
+            else if (state == 2 && s == 3)
+                OnUse();
+            else if (state == 3 && s == 1)
+            {
+                OnUnuse();
+                OnPut();
+            }
+            else if (state == 3 && s == 2)
+                OnUnuse();
+
             state = s;
         }
     }
@@ -170,6 +200,30 @@ public abstract class ObjectItem : ObjectInteractive
     /// 被拿取時
     /// </summary>
     protected virtual void OnTake()
+    {
+
+    }
+
+    /// <summary>
+    /// 被放下時
+    /// </summary>
+    protected virtual void OnPut()
+    {
+
+    }
+
+    /// <summary>
+    /// 被使用時
+    /// </summary>
+    protected virtual void OnUse()
+    {
+
+    }
+
+    /// <summary>
+    /// 使用完時
+    /// </summary>
+    protected virtual void OnUnuse()
     {
 
     }
