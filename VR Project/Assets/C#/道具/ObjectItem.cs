@@ -19,6 +19,9 @@ public abstract class ObjectItem : ObjectInteractive
     public GameObject name_prefab;
     public GameObject content_prefab;
 
+    [Tooltip("敘述：\n0被發現時\n1拿取時\n2使用時\n3用完時\n4放下時\nPS:目前只實裝0 \\n換行")]
+    public string[] lines;
+
     void Awake()
     {
         this.gameObject.tag = "可拿取";
@@ -98,6 +101,7 @@ public abstract class ObjectItem : ObjectInteractive
             rotateKeep.ResetRotateAndPos();
 
         ObjectMove itm = gameObject.AddComponent<ObjectMove>();
+
         itm.set(gameObject, gameObject, keep_slot);
         parent = transform.parent.gameObject;
         transform.SetParent(keep_slot.transform);
@@ -141,7 +145,7 @@ public abstract class ObjectItem : ObjectInteractive
     /// <summary>
     /// 設定狀態 0="未發現" 1="已發現" 2="拿取中" 3="使用中"
     /// </summary>
-    public void SetState(int s)
+    public virtual void SetState(int s)
     {
         if(state != s)
         {
@@ -195,7 +199,9 @@ public abstract class ObjectItem : ObjectInteractive
     /// </summary>
     protected virtual void OnBeFound()
     {
-        
+        if (lines.Length > 0 && lines[0] != null && TryGetComponent<ContentPrinter>(out var cp))
+            cp.SetAndPlay(lines[0].Replace("\\n","\n"));
+            
     }
 
     /// <summary>

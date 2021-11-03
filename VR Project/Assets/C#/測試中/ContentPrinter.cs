@@ -28,6 +28,11 @@ public class ContentPrinter : MonoBehaviour
         printspeed = f1;
         printkeep = f2;
     }
+    public void SetAndPlay(string s, float f1 = 0.1f, float f2 = 1f)
+    {
+        Set(s, f1, f2);
+        Play();
+    }
 
     public void Play()
     {

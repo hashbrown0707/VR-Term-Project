@@ -16,12 +16,12 @@ public class WirelessCharger: ObjectItem
         int temp_s = GetState();
         if (temp_s == 0)
             SetState(1);
-
+        /*
         if (owlPhone.GetState() == 2 && temp_s == 1 && !owlPhone.power) 
         {
             SetState(3);
             StartCoroutine("charge");
-        }
+        }*/
     }
 
     //使用中
@@ -36,6 +36,11 @@ public class WirelessCharger: ObjectItem
     {
         //SetState(1);
         Debug.Log("充電器解除使用");
+    }
+    public override void SetState(int s)
+    {
+        if (!(GetState() == 4 && s == 2))
+            base.SetState(s);
     }
 
     IEnumerator charge()

@@ -373,7 +373,7 @@ Transform:
   m_GameObject: {fileID: 128208905}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -97.6, y: 216.7, z: -108.6}
-  m_LocalScale: {x: 20, y: 25, z: 5}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 1426436751}
   m_RootOrder: 3
@@ -392,12 +392,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor_tag: "\u5730\u677F"
   keep_slot: {fileID: 1653286931}
-  table_slot: {fileID: 0}
+  table_slot: {fileID: 445731047}
   fly_speed: 0.01
   name_prefab: {fileID: 605712317166248061, guid: 2125134d201bbf247863a66898b01df9,
     type: 3}
   content_prefab: {fileID: 7556043835282728820, guid: 3e05961b5a532bd4f8d13472baa05c87,
     type: 3}
+  lines: []
+  work_slot: {fileID: 141666478}
 --- !u!65 &128208908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -573,6 +575,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &141666478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141666479}
+  m_Layer: 0
+  m_Name: Slot-work
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141666479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141666478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4, y: 0.55, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171252047}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182088627
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,13 +978,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor_tag: "\u5730\u677F"
   keep_slot: {fileID: 1653286931}
-  table_slot: {fileID: 0}
+  table_slot: {fileID: 1549900147}
   fly_speed: 0.01
   name_prefab: {fileID: 605712317166248061, guid: 2125134d201bbf247863a66898b01df9,
     type: 3}
   content_prefab: {fileID: 7556043835282728820, guid: 3e05961b5a532bd4f8d13472baa05c87,
     type: 3}
+  lines: []
   power: 0
+  charger: {fileID: 709224543}
+  power_slot: {fileID: 899975166}
+  unlock: 0
   password: {fileID: 1003060504}
   text: {fileID: 0}
 --- !u!54 &412252943
@@ -1260,6 +1296,36 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &445731047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445731048}
+  m_Layer: 0
+  m_Name: Slot-2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445731048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445731047}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0.55, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171252047}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &448246842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,7 +1982,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 81.3, y: 2.3, z: 93.1}
   m_LocalScale: {x: 20, y: 1, z: 20}
-  m_Children: []
+  m_Children:
+  - {fileID: 899975167}
   m_Father: {fileID: 1426436751}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1934,12 +2001,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor_tag: "\u5730\u677F"
   keep_slot: {fileID: 1653286931}
-  table_slot: {fileID: 0}
+  table_slot: {fileID: 1617737336}
   fly_speed: 0.01
   name_prefab: {fileID: 605712317166248061, guid: 2125134d201bbf247863a66898b01df9,
     type: 3}
   content_prefab: {fileID: 7556043835282728820, guid: 3e05961b5a532bd4f8d13472baa05c87,
     type: 3}
+  lines: []
   owlpple: {fileID: 412252940}
 --- !u!54 &709224546
 Rigidbody:
@@ -2424,6 +2492,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893503611}
   m_CullTransparentMesh: 0
+--- !u!1 &899975166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899975167}
+  m_Layer: 0
+  m_Name: PowerSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899975167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899975166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 709224544}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &900973706
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,6 +3324,7 @@ MonoBehaviour:
   player: {fileID: 948214722}
   keep_slot: {fileID: 1653286931}
   main_camera: {fileID: 1818581412}
+  owlphone: {fileID: 412252940}
   pwlock: 1
 --- !u!114 &1003060507
 MonoBehaviour:
@@ -3368,6 +3467,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1085339018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1085339019}
+  m_Layer: 0
+  m_Name: Slot-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1085339019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085339018}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171252047}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1099688722
 GameObject:
   m_ObjectHideFlags: 0
@@ -3683,7 +3812,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 70, y: 50, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children: []
+  m_Children:
+  - {fileID: 1085339019}
+  - {fileID: 445731048}
+  - {fileID: 1617737337}
+  - {fileID: 1549900148}
+  - {fileID: 141666479}
   m_Father: {fileID: 749562866}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4636,6 +4770,36 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1549900147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549900148}
+  m_Layer: 0
+  m_Name: Slot-4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1549900148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549900147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171252047}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1567759280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4714,6 +4878,36 @@ Transform:
   m_LocalScale: {x: 15, y: 175, z: 40}
   m_Children: []
   m_Father: {fileID: 948214725}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1617737336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1617737337}
+  m_Layer: 0
+  m_Name: Slot-3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1617737337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617737336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1171252047}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1627586179
@@ -5852,12 +6046,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor_tag: "\u5730\u677F"
   keep_slot: {fileID: 1653286931}
-  table_slot: {fileID: 0}
+  table_slot: {fileID: 1085339018}
   fly_speed: 0.01
   name_prefab: {fileID: 605712317166248061, guid: 2125134d201bbf247863a66898b01df9,
     type: 3}
   content_prefab: {fileID: 7556043835282728820, guid: 3e05961b5a532bd4f8d13472baa05c87,
     type: 3}
+  lines:
+  - "\u9019\u662F\u4E00\u500B\\n\u80FD\u770B\u5230\u65E5\u8A18\u7684\\n\u58A8\u93E1"
   diary: {fileID: 128208905}
   diary_HL: {fileID: 128208912}
 --- !u!54 &2008756625

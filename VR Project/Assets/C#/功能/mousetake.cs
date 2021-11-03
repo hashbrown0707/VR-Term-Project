@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class mousetake : MonoBehaviour
 {
+    public static mousetake op_port;
+    private void Awake()
+    {
+        op_port = this;
+    }
     public GameObject player;
     public float t = 0.1f;
     public float 倍率 = 1.0005f;
@@ -51,22 +56,23 @@ public class mousetake : MonoBehaviour
         //拖拽物體不能為空
         if (go != null)
         {
-            // 按下互動鍵"f"
-            if (Input.GetKeyDown("f"))
-            {
-                if (go.gameObject.TryGetComponent(out ObjectInteractive objectInteractive))
-                {
-                    objectInteractive.Keydown();
-                }
-            }
+            
             
             if(go.gameObject.TryGetComponent(out ObjectItem oi))
             {
                 oi.OnPlayerLookAt();
             }
 
+            // 按下互動鍵"f"
+            if (Input.GetKeyDown("f") && keepobject && go == keep)
+            {
+                if (go.gameObject.TryGetComponent(out ObjectInteractive objectInteractive))
+                {
+                    objectInteractive.Keydown();
+                }
+            }
             //短按 拿到面前
-            if (Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
+            else if (Input.GetMouseButtonDown(0) && !keepobject && take_cd == 0 && go.tag == interactivetag)
             {
                 if (go.gameObject.TryGetComponent(out ObjectItem objectItem))
                 {
@@ -88,8 +94,13 @@ public class mousetake : MonoBehaviour
                     take_cd = 0;
                 }
             }
+            else if (keepobject && keep == null)
+            {
+                keepobject = !keepobject;
+                take_cd = 0;
+            }
             //長按 拖拽
-            else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag)
+            /*else if (Input.GetMouseButton(0) && take_cd == 0 && go.tag == interactivetag)
             {
                 if (keep != null && keep.gameObject.TryGetComponent(out ObjectItem keepobjectItem))
                 {
@@ -109,7 +120,7 @@ public class mousetake : MonoBehaviour
                 if (go.gameObject.TryGetComponent(out ObjectItem objectItem))
                     objectItem.SetState(1);
                     
-            }
+            }*/
             //魯味的鉤
             else if (Input.GetMouseButton(4))
             {
@@ -136,6 +147,15 @@ public class mousetake : MonoBehaviour
             }
             take_cd = (take_cd == 0) ? 0 : take_cd - 1;
         }
-        
+    }
+
+    public void ReleaseKeep()
+    {
+        if (keepobject)
+        {
+            keepobject = !keepobject;
+            keep = null;
+            take_cd = 0;
+        }
     }
 }
