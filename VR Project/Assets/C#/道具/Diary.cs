@@ -35,6 +35,8 @@ public class Diary : ObjectItem
 
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
+        if (keep_slot.TryGetComponent(out RotateKeepVR rotateKeepVR))
+            rotateKeepVR.ResetRotateAndPos();
 
         if (work_slot != null)
             itm.set(gameObject, gameObject, work_slot);

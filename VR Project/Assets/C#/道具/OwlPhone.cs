@@ -80,6 +80,8 @@ public class OwlPhone : ObjectItem
 
                 if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
                     rotateKeep.ResetRotateAndPos();
+                if (keep_slot.TryGetComponent(out RotateKeepVR rotateKeepVR))
+                    rotateKeepVR.ResetRotateAndPos();
 
                 if (power_slot != null)
                     itm.set(gameObject, gameObject, power_slot);

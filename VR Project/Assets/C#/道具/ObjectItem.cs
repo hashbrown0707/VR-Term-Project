@@ -99,6 +99,8 @@ public abstract class ObjectItem : ObjectInteractive
         Debug.Log("ObjectItem 被拿取");
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
+        if (keep_slot.TryGetComponent(out RotateKeepVR rotateKeepVR))
+            rotateKeepVR.ResetRotateAndPos();
 
         ObjectMove itm = gameObject.AddComponent<ObjectMove>();
 
@@ -124,6 +126,8 @@ public abstract class ObjectItem : ObjectInteractive
 
         if (keep_slot.TryGetComponent(out RotateKeep rotateKeep))
             rotateKeep.ResetRotateAndPos();
+        if (keep_slot.TryGetComponent(out RotateKeepVR rotateKeepVR))
+            rotateKeepVR.ResetRotateAndPos();
 
         if (table_slot != null)
             itm.set(gameObject, gameObject, table_slot);
