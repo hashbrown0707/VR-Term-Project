@@ -48,6 +48,8 @@ public class Diary : ObjectItem
 
         if (FindObjectOfType<mousetake>())
             mousetake.op_port.ReleaseKeep();
+        if (FindObjectOfType<ChainMoveVR>())
+            ChainMoveVR.keep = null;
     }
 
     //解除使用

@@ -93,6 +93,8 @@ public class OwlPhone : ObjectItem
 
                 if (FindObjectOfType<mousetake>())
                     mousetake.op_port.ReleaseKeep();
+                if (FindObjectOfType<ChainMoveVR>())
+                    ChainMoveVR.keep = null;
 
                 StartCoroutine(charge());
             }

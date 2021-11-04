@@ -28,6 +28,8 @@ public class Sunglasses : ObjectItem
     {
         Debug.Log("墨鏡使用中");
         diary_HL.enabled = true;
+        if (FindObjectOfType<ChainMoveVR>())
+            ChainMoveVR.keep = null;
         Destroy(gameObject);
     }
 

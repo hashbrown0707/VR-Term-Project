@@ -37,6 +37,7 @@ public class ChainMoveVR : MonoBehaviour
     public static int take_cd = 0;
     public ChainMoveVR anotherhand;
     public string 可拿取tag = "可拿取";
+    public string 用於移動tag = "用於移動";
 
     public int chainmode = 0;
     public int modecount = 2;
@@ -125,9 +126,9 @@ public class ChainMoveVR : MonoBehaviour
         if (a_btn.GetStateDown(pose.inputSource))
             chainmode = (chainmode + 1) % modecount;
 
-        if (chainmode == 0)
+        /*if (chainmode == 0)
             Move();
-        else if (chainmode == 1)
+        else if (chainmode == 1)*/
             Catch();
 
     }
@@ -177,32 +178,33 @@ public class ChainMoveVR : MonoBehaviour
     }
     void Catch()
     {
-        // 按下互動鍵"f"
-        if (bHit && b_btn.GetStateDown(pose.inputSource))
+        var temp_gpsd = gp.GetStateDown(pose.inputSource);
+        GameObject temp_hitgo = null;
+        if (bHit)
+            temp_hitgo = hitinfo.collider.gameObject;
+
+        // 對UI按下互動鍵"f"
+        if (bHit && temp_gpsd && temp_hitgo.TryGetComponent(out VR_UIBtn btn))
         {
-            if (hitinfo.collider.gameObject.TryGetComponent(out ObjectInteractive objectInteractive))
-            {
-                objectInteractive.Keydown();
-            }
-            else if (hitinfo.collider.gameObject.TryGetComponent(out VR_UIBtn btn))
-            {
-                btn.OnHit();
-            }
+            btn.OnHit();
         }
-        
-        //短按 拿到面前
-        if (bHit && gp.GetStateDown(pose.inputSource) && keep == null && take_cd == 0 && hitinfo.collider.gameObject.CompareTag(可拿取tag))
+        // 按下互動鍵"f"
+        if (bHit && temp_gpsd && temp_hitgo == keep && temp_hitgo.TryGetComponent(out ObjectInteractive objectInteractive))
         {
-            if (hitinfo.collider.gameObject.TryGetComponent(out ObjectItem objectItem))
+            objectInteractive.Keydown();
+        }
+        //短按 拿到面前
+        else if (bHit && temp_gpsd && keep == null && take_cd == 0 && temp_hitgo.CompareTag(可拿取tag))
+        {
+            if (temp_hitgo.TryGetComponent(out ObjectItem objectItem))
             {
-                //objectItem.KeepIt(hitinfo.collider.gameObject);
                 objectItem.SetState(2);
-                keep = hitinfo.collider.gameObject;
+                keep = temp_hitgo;
                 take_cd = 60;
             }
         }
         //短按 放下
-        else if (gp.GetStateDown(pose.inputSource) && keep != null)
+        else if (temp_gpsd && keep != null)
         {
             if (keep.TryGetComponent(out ObjectItem objectItem))
             {
@@ -211,22 +213,34 @@ public class ChainMoveVR : MonoBehaviour
                 take_cd = 0;
             }
         }
-        else if(bHit && hitinfo.collider.gameObject.CompareTag(可拿取tag))
+        //鎖鏈移動
+        else if (bHit && gp.GetState(pose.inputSource) && temp_hitgo.CompareTag(用於移動tag) && sq.axis != 0)
+        {
+            player.transform.position = Vector3.Lerp(player.transform.position, hitinfo.point, sq.axis * Time.deltaTime);
+            pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
+            pointer.GetComponent<MeshRenderer>().material.color = 收繩color;
+        }
+        else if(bHit && temp_hitgo.TryGetComponent(out VR_UIBtn _))
+        {
+            pointer.transform.localScale = new Vector3(thickness, thickness, dist);
+            pointer.GetComponent<MeshRenderer>().material.color = Color.magenta;
+        }
+        else if(bHit && temp_hitgo.CompareTag(可拿取tag))
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = Color.cyan;
         }
-        else if(bHit && hitinfo.collider.gameObject.TryGetComponent(out VR_UIBtn btn))
+        else if (bHit && temp_hitgo.CompareTag(用於移動tag))
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
-            pointer.GetComponent<MeshRenderer>().material.color = Color.magenta;
+            pointer.GetComponent<MeshRenderer>().material.color = Color.blue;
         }
         else
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = color;
         }
-        take_cd = (take_cd == 0) ? 0 : take_cd--;
+        take_cd = (take_cd == 0) ? 0 : (take_cd - 1);
         pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
     }
 }

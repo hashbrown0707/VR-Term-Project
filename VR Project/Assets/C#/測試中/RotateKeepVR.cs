@@ -14,7 +14,8 @@ public class RotateKeepVR : MonoBehaviour
     public GameObject max;
     public GameObject min;
     public float zoom_trigger = 1f;
-    public Quaternion rotate;
+    public Vector3 origin;
+    public Vector3 rotate;
     
     // Start is called before the first frame update
     void Start()
@@ -33,12 +34,26 @@ public class RotateKeepVR : MonoBehaviour
     {
         if (gg.GetStateDown(pose.inputSource))
         {
-            rotate = transform.rotation;
+            rotate = rotate_hand.transform.rotation.eulerAngles;
+            origin = keep_slot.transform.rotation.eulerAngles;
             dist = Vector3.Distance(rotate_hand.transform.position, player.transform.position);
         }
         else if(gg.GetState(pose.inputSource))
         {
-            keep_slot.transform.Rotate(rotate_hand.transform.rotation.x - rotate.x, rotate_hand.transform.rotation.y - rotate.y, rotate_hand.transform.rotation.z - rotate.z);
+            var temp_rotate = rotate_hand.transform.rotation.eulerAngles - rotate;
+            //keep_slot.transform.Rotate(rotate_hand.transform.rotation.x - rotate.x, rotate_hand.transform.rotation.y - rotate.y, rotate_hand.transform.rotation.z - rotate.z);
+            //keep_slot.transform.rotation = Quaternion.Euler(rotate_hand.transform.rotation.x - rotate.x, rotate_hand.transform.rotation.y - rotate.y, rotate_hand.transform.rotation.z - rotate.z);
+            //keep_slot.transform.rotation = rotate_hand.transform.rotation * rotate;
+            //keep_slot.transform.rotation = Quaternion.Euler(transform.rotation.x + temp_rotate.x, transform.rotation.y + temp_rotate.y, transform.rotation.z + temp_rotate.z);
+            //keep_slot.transform.LookAt(player.transform, rotate_hand.transform.forward);
+            //keep_slot.transform.rotation = Quaternion.LookRotation(rotate_hand.transform.forward);
+            //keep_slot.transform.rotation = rotate_hand.transform.rotation;
+            keep_slot.transform.rotation = Quaternion.Euler(origin + temp_rotate);
+
+            //Debug.Log("keep: "+keep_slot.transform.rotation);
+            //Debug.Log("hand: " + rotate_hand.transform.rotation);
+            //Debug.Log("hand local: " + rotate_hand.transform.localRotation);
+            //Debug.Log("temp: "+temp_rotate);
             var temp_dist = Vector3.Distance(rotate_hand.transform.position, player.transform.position);
             if ((temp_dist - dist - zoom_trigger) > 0 && temp_dist > dist + zoom_trigger)
                 keep_slot.transform.position = Vector3.Lerp(keep_slot.transform.position, min.transform.position, (temp_dist - dist - zoom_trigger) * Time.deltaTime);
