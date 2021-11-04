@@ -31,10 +31,16 @@ public class PasswordSYS : MonoBehaviour
         {
             ps_slot[i].GetComponent<Image>().sprite = num_none;
         }
-        player.GetComponent<PlayerMove>().enabled = false;
-        player.GetComponent<mousetake>().enabled = false;
-        keep_slot.GetComponent<RotateKeep>().enabled = false;
-        main_camera.GetComponent<CameraControl>().enabled = false;
+        if (FindObjectOfType<PlayerMove>())
+            player.GetComponent<PlayerMove>().enabled = false;
+        if (FindObjectOfType<mousetake>())
+            player.GetComponent<mousetake>().enabled = false;
+        if (FindObjectOfType<RotateKeep>())
+            keep_slot.GetComponent<RotateKeep>().enabled = false;
+        if (FindObjectOfType<CameraControl>())
+            main_camera.GetComponent<CameraControl>().enabled = false;
+        keep_slot.SetActive(false);
+
         this.gameObject.SetActive(true);
     }
 
@@ -51,12 +57,17 @@ public class PasswordSYS : MonoBehaviour
     public void exitbtn()
     {
         this.gameObject.SetActive(false);
-        player.GetComponent<PlayerMove>().enabled = true;
-        player.GetComponent<mousetake>().enabled = true;
-        keep_slot.GetComponent<RotateKeep>().enabled = true;
-        main_camera.GetComponent<CameraControl>().enabled = true;
+
+        if (FindObjectOfType<PlayerMove>())
+            player.GetComponent<PlayerMove>().enabled = true;
+        if (FindObjectOfType<mousetake>())
+            player.GetComponent<mousetake>().enabled = true;
+        if (FindObjectOfType<RotateKeep>())
+            keep_slot.GetComponent<RotateKeep>().enabled = true;
+        if (FindObjectOfType<CameraControl>())
+            main_camera.GetComponent<CameraControl>().enabled = true;
+        keep_slot.SetActive(true);
         owlphone.GetComponent<OwlPhone>().SetState(2);
-        owlphone.GetComponent<OwlPhone>().text.text = "我也不知道\n門的密碼030";
     }
 
     public void backbtn()
