@@ -11,7 +11,7 @@ public class PasswordSYS : MonoBehaviour
     public GameObject player;
     public GameObject keep_slot;
     public GameObject main_camera;
-    public GameObject owlphone;
+    public GameObject lock_gameObject;
     public bool pwlock = true;
     // Start is called before the first frame update
     void Start()
@@ -67,7 +67,9 @@ public class PasswordSYS : MonoBehaviour
         if (FindObjectOfType<CameraControl>())
             main_camera.GetComponent<CameraControl>().enabled = true;
         keep_slot.SetActive(true);
-        owlphone.GetComponent<OwlPhone>().SetState(2);
+
+        if (lock_gameObject.TryGetComponent<OwlPhone>(out var owlphone))
+            owlphone.SetState(2);
     }
 
     public void backbtn()
@@ -86,9 +88,9 @@ public class PasswordSYS : MonoBehaviour
             ps_slot[2].GetComponent<Image>().sprite == num_list[2] &&
             ps_slot[3].GetComponent<Image>().sprite == num_list[1])
         {
-            exitbtn();
             Debug.Log("正確");
             pwlock = false;
+            exitbtn();
         }
         else
         {

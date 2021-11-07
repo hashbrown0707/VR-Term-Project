@@ -41,7 +41,7 @@ public class RotateKeepVR : MonoBehaviour
         else if(gg.GetState(pose.inputSource))
         {
             var temp_rotate = rotate_hand.transform.rotation.eulerAngles - rotate;
-            //keep_slot.transform.rotation = Quaternion.Euler(origin + temp_rotate);
+            keep_slot.transform.rotation = Quaternion.Euler(origin + temp_rotate);
 
             
 

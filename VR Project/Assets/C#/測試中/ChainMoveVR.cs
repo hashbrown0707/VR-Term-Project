@@ -189,9 +189,13 @@ public class ChainMoveVR : MonoBehaviour
             btn.OnHit();
         }
         // 按下互動鍵"f"
-        if (bHit && temp_gpsd && temp_hitgo == keep && temp_hitgo.TryGetComponent(out ObjectInteractive objectInteractive))
+        if (bHit && temp_gpsd && temp_hitgo == keep && temp_hitgo.TryGetComponent(out ObjectItem objectItem1))
         {
-            objectInteractive.Keydown();
+            objectItem1.Keydown();
+        }
+        else if (bHit && temp_gpsd && temp_hitgo.TryGetComponent(out Door door))
+        {
+            door.Keydown();
         }
         //短按 拿到面前
         else if (bHit && temp_gpsd && keep == null && take_cd == 0 && temp_hitgo.CompareTag(可拿取tag))
@@ -224,6 +228,11 @@ public class ChainMoveVR : MonoBehaviour
         {
             pointer.transform.localScale = new Vector3(thickness, thickness, dist);
             pointer.GetComponent<MeshRenderer>().material.color = Color.magenta;
+        }
+        else if (bHit && temp_hitgo.TryGetComponent(out Door _))
+        {
+            pointer.transform.localScale = new Vector3(thickness, thickness, dist);
+            pointer.GetComponent<MeshRenderer>().material.color = Color.cyan;
         }
         else if(bHit && temp_hitgo.CompareTag(可拿取tag))
         {

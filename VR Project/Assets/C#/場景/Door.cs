@@ -7,15 +7,31 @@ public class Door : ObjectInteractive
 {
     public Animator dooranim;
     public bool openorclose = false;
+    public bool unlock = false;
     public Rigidbody door_rigidbody;
-    
+    public GameObject password;
+
+    private void Update()
+    {
+        unlock = !password.GetComponent<PasswordSYS>().pwlock;
+    }
+
     //當 互動鍵被按下時
     public override void Keydown()
     {
+        if (unlock)
+            OpenCloseDoor();
+        else
+            password.GetComponent<PasswordSYS>().openpasswordtable();
+    }
+
+    void OpenCloseDoor()
+    {
         door_rigidbody.constraints = RigidbodyConstraints.None;
-        
-        dooranim.SetBool("開門", !openorclose);
+
         openorclose = !openorclose;
+        dooranim.SetBool("開門", openorclose);
+
 
         Debug.Log("嘗試開關門");
         if (ptr_freeze_cd != null)
