@@ -89,7 +89,6 @@ public class PasswordSYS : MonoBehaviour
             ps_slot[3].GetComponent<Image>().sprite == num_list[1])
         {
             Debug.Log("正確");
-            ImgManager.op_port.SwitchImgManager(0, 2);
             pwlock = false;
             exitbtn();
         }

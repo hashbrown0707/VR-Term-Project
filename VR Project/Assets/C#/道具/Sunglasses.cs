@@ -6,7 +6,6 @@ public class Sunglasses : ObjectItem
 {
     public GameObject diary;
     public Outline diary_HL;
-    private bool used = false;
 
     //當 互動鍵被按下時
     public override void Keydown()
@@ -27,12 +26,6 @@ public class Sunglasses : ObjectItem
     //使用中
     public override void Using()
     {
-        if (!used)
-        {
-            ImgManager.op_port.SwitchImgManager(0, 1);
-            used = true;
-        }
-        
         Debug.Log("墨鏡使用中");
         diary_HL.enabled = true;
         if (FindObjectOfType<ChainMoveVR>())
@@ -50,7 +43,6 @@ public class Sunglasses : ObjectItem
     protected override void OnBeFound()
     {
         base.OnBeFound();
-        
         /*if(this.TryGetComponent<ContentPrinter>(out var cp))
         {
             cp.Set("這是一個\n能看到日記的\n墨鏡");
